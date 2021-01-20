@@ -34,6 +34,9 @@ namespace API
             });
 
             services.AddControllers();
+
+            services.AddCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -54,6 +57,9 @@ namespace API
 
             app.UseRouting();
 
+            app.UseCors(x=>x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            //AllowAnyHeaders=> Allow authentication headers
+            //AllowAnyMethod => GET,POST ktl request
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
